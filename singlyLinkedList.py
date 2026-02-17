@@ -2,21 +2,23 @@
     A singly linked list implementation using a Node class and keeping track of the head, tail, and length
 
     Methods: 
-    is_empty()       : Return True if the Linked List is empty, False otherwise
-    size()           : Returns the length of the Linked List, 0 if empty
-    append(val)      : Adds a node with value "val" at the tail of the list
-    prepend(val)     : Adds a node with value "val" at the head of the list
-    pop()            : Removes and returns the value of the tail node
-    remove(val)      : Removes the first node containing "val" and retuns it, Returns None if not found
-    find(val)        : Returns the index of the first node containing "val", Returns "Value not found", if not found
-    get(index)       : Returns the value at the given index, Returns "Index does not exist" if out of bounds
-    clear()          : Removes all nodes from the list
+    is_empty()        : Return True if the Linked List is empty, False otherwise
+    size()            : Returns the length of the Linked List, 0 if empty
+    append(val)       : Adds a node with value "val" at the tail of the list
+    prepend(val)      : Adds a node with value "val" at the head of the list
+    insert(index, val): Inserts val at index
+    pop()             : Removes and returns the value of the tail node
+    remove(val)       : Removes the first node containing "val" and retuns it, Returns None if not found
+    find(val)         : Returns the index of the first node containing "val", Returns "Value not found", if not found
+    get(index)        : Returns the value at the given index, Returns "Index does not exist" if out of bounds
+    clear()           : Removes all nodes from the list
     """
 
 class Node:
     def __init__(self, val):
         self.val = val
         self.next = None
+        self.prev = None
 
 class SinglyLinkedList():
     def __init__(self):
@@ -53,6 +55,28 @@ class SinglyLinkedList():
             self.head = new_node
 
         self.length += 1
+
+    def insert(self, index, val):
+        new_node = Node(val)
+        if index < 0 or index > self.length(): # bad index
+            return "Index does not exist"
+        
+        if index == 0: #insert at head
+            new_node.next = self.head
+            self.head = new_node
+
+            if self.length == 0:
+                self.tail = new_node
+
+        elif index == self.length: #insert at tail
+            self.tail.next = new_node
+            self.tail = new_node
+
+        else:  #insert in middle
+            prev = self.get(index - 1)
+            new_node.next = prev.next
+            prev.next = new_node
+
 
     def pop(self):
         if self.head == None: # empty list case
@@ -101,8 +125,6 @@ class SinglyLinkedList():
                 self.tail = current
         self.length -= 1
         return removed_val
-        
-
 
     def find(self, val):
         current = self.head

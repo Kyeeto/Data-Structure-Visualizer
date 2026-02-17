@@ -97,8 +97,8 @@ def singlyLinkedListTest():
 
 
 def main():
-    # stackLogicTest()
-    # queueLogicTest()
+    stackLogicTest()
+    queueLogicTest()
     singlyLinkedListTest()
     
 if __name__ == "__main__":
