@@ -77,6 +77,8 @@ class SinglyLinkedList():
             new_node.next = prev.next
             prev.next = new_node
 
+        self.length += 1
+
 
     def pop(self):
         if self.head == None: # empty list case
