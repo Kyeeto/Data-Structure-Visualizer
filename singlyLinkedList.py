@@ -142,16 +142,17 @@ class SinglyLinkedList():
         return "Value not found"
     
     def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        
         current = self.head
         currentIndex = 0
 
-        while current != None:
-            if currentIndex == index:
-                return current.val
-            else:
-                current = current.next
-                currentIndex += 1
-        return "Index does not exist"
+        while currentIndex != index:
+            current = current.next
+            currentIndex += 1
+        
+        return current.val
 
     def clear(self):
         self.head = None

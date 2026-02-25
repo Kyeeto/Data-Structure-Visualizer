@@ -98,20 +98,56 @@ class DoublyLinkedList:
 
             return val
 
-    def pop_first():
-        pass
+    def pop_first(self):
+        if self.head == None: # empty list case
+            return None
+        elif self.head == self.tail: # single element list case
+            val = self.head.val
+            self.head = None
+            self.tail = None
+            self.length = 0
+            return val
+        else: 
+            old_head = self.head
+            self.head = old_head.next
+            old_head.next = None
+            self.head.prev = None
+            self.length -=1
+            return old_head.val
 
-    def remove(value):
+    def remove(val):
         pass
 
     def remove_at(index):
         pass
 
-    def get(index):
-        pass
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        
+        currentIndex = 0
+        current= self.head
 
-    def set(index, value):
-        pass
+        while currentIndex != index:
+            current = current.next
+            currentIndex +=1
+        
+        return current.val
 
-    def clear():
-        pass
+    def set(self, index, val):
+        if index < 0 or index >= self.length:
+            return None
+        
+        currentIndex = 0
+        current= self.head
+
+        while currentIndex != index:
+            current = current.next
+            currentIndex +=1
+        
+        current.val = val
+
+    def clear(self):
+        self.head = None
+        self.tail = None
+        self.length = 0
