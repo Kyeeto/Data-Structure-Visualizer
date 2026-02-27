@@ -6,11 +6,12 @@
     size()            : Returns the length of the Linked List, 0 if empty
     append(val)       : Adds a node with value "val" at the tail of the list
     prepend(val)      : Adds a node with value "val" at the head of the list
-    insert(index, val): Inserts val at index
+    insert(index, val): Insert a node with a value "val" at index
     pop()             : Removes and returns the value of the tail node
     remove(val)       : Removes the first node containing "val" and retuns it, Returns None if not found
     find(val)         : Returns the index of the first node containing "val", Returns "Value not found", if not found
     get(index)        : Returns the value at the given index, Returns "Index does not exist" if out of bounds
+    getNode(index)       : Returns the value at the given index, Returns "Index does not exist" if out of bounds 
     clear()           : Removes all nodes from the list
     """
 
@@ -114,7 +115,7 @@ class SinglyLinkedList():
             self.length -= 1
             return removed_val
         
-        current = self.head # finding node before remove
+        current = self.head
         while current.next and current.next.val != val:
             current = current.next
 
@@ -139,7 +140,7 @@ class SinglyLinkedList():
             else:
                 current = current.next
                 index += 1
-        return "Value not found"
+        return None
     
     def get(self, index):
         if index < 0 or index >= self.length:
@@ -151,6 +152,19 @@ class SinglyLinkedList():
         while currentIndex != index:
             current = current.next
             currentIndex += 1
+        
+        return current.val
+    
+    def getNode(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        
+        currentIndex = 0
+        current = self.head
+
+        while currentIndex != index:
+            current = current.next
+            currentIndex +=1
         
         return current.val
 

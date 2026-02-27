@@ -1,6 +1,7 @@
 from stack import Stack
 from myqueue import Queue
 from singlyLinkedList import SinglyLinkedList
+from doublyLinkedList import DoublyLinkedList
 
 def stackLogicTest():
     s = Stack()
@@ -95,11 +96,60 @@ def singlyLinkedListTest():
     print("size after clear:", lst.size())
     print("is_empty:", lst.is_empty())
 
+def doublyLinkedListTest():
+    lst = DoublyLinkedList()
+
+    print(lst.is_empty())       # 0
+    print(lst.size())           # 0
+
+    lst.append(10)
+    lst.append(20)
+            #10 20
+    print(lst.get(0))           # 10
+    print(lst.get(1))           # 20
+    print(lst.size())           # 2
+
+    lst.prepend(5)
+    lst.prepend(2)
+            #2 5 10 20
+    print(lst.get(0))           # 2
+    print(lst.get(1))           # 5
+    print(lst.size())           # 4
+
+    lst.insert(0, 1)
+            #1 2 5 10 20
+    print(lst.get(0))           #1
+    lst.insert(5, 40)
+            #1 2 5 10 20 40
+    print(lst.get(5))           #40
+    lst.insert(4, 15)
+            #1 2 5 10 15 20 40
+    print(lst.get(4))           #15
+
+    print(lst.pop())            #40
+            #1 2 5 10 15 20
+    print(lst.pop_first())      #1
+            #2 5 10 15 20
+
+"""
+            remove
+            remove at
+            find
+            set 
+            clear
+
+            remove specific cases
+            remove at specific cases
+            pop and pop first specific cases
+"""
+
 
 def main():
-    stackLogicTest()
+    """stackLogicTest()
     queueLogicTest()
     singlyLinkedListTest()
+    """
+    doublyLinkedListTest()
     
 if __name__ == "__main__":
     main()
