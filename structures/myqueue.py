@@ -10,7 +10,7 @@ class Queue():
     front()             : Return the front value of queue without removing it. Returns None if empty
     is_empty()          : Return True if the queue is empty, False otherwise.
     qsize()             : Return the number of elements in the queue.
-    is_full()              : Returns true if the queue has reached its maximum size
+    is_full()           : Returns true if the queue has reached its maximum size
     clear()             : Remove all elements from the queue.
     """
 
