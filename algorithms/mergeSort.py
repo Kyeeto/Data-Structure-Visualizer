@@ -4,7 +4,7 @@ A Simple Merge Sort implementation.
 
 def mergeSort(lst):
     if len(lst) > 1:
-        mid = len(lst) / 2
+        mid = len(lst) // 2
         L = lst[:mid]
         R = lst[mid:]
 
