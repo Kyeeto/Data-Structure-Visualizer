@@ -32,7 +32,7 @@ class DoublyLinkedList:
         self.length = 0
 
     def is_empty(self):
-        return self.length
+        return self.length == 0
     
     def size(self):
         return self.length
