@@ -7,12 +7,12 @@ class Node():
 class BinarySearchTree(): 
     def __init__(self):
         self.root = None
-        self.size = 0
+        self.length = 0
 
     def insert_node(self, node, val):
         if node is None:
             newNode = Node(val)
-            self.size +=1
+            self.length +=1
             return newNode
         if val < node.val:
             node.left = (self.insert_node(node.left, val))
@@ -32,13 +32,13 @@ class BinarySearchTree():
             node.right = self.delete_node(node.right, val)
         else:
             if node.left is None and node.right is None:
-                self.size -= 1
+                self.length -= 1
                 return None
             elif node.left is None:
-                self.size -= 1
+                self.length -= 1
                 return node.right
             elif node.right is None:
-                self.size -= 1
+                self.length -= 1
                 return node.left
             else:
                 successor = node.right
@@ -50,8 +50,16 @@ class BinarySearchTree():
     def delete(self, val):
         self.root = self.delete_node(self.root, val)
 
-    def search(self):
-        pass
+    def search(self, val):
+        current = self.root
+        while current != None:
+            if val == current.val:
+                return current
+            elif val < current.val:
+                current = current.left
+            elif val > current.val:
+                current = current.right
+        return None
     
     def inOrder(self):
         pass
@@ -63,13 +71,14 @@ class BinarySearchTree():
         pass
 
     def is_empty(self):
-        pass
+        return self.root == None
 
     def size(self):
-        pass
+        return self.length
 
     def clear(self):
-        pass
+        self.root = None
+        self.length = 0
 
     def findMin(self):
         pass
