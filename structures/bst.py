@@ -1,3 +1,22 @@
+"""
+
+    A binary search tree implementation using a Node class, keeping track of the root and length
+
+    Methods:
+    insert(val)          : Inserts a node with value "val" into the tree, ignores duplicates
+    delete(val)          : Removes the node with value "val" from the tree, does nothing if not found
+    search(val)          : Returns the node containing "val", returns None if not found
+    in_order()           : Returns a list of all values in sorted (ascending) order
+    pre_order()          : Returns a list of all values in pre-order (node, left, right)
+    post_order()         : Returns a list of all values in post-order (left, right, node)
+    find_min()           : Returns the smallest value in the tree, returns None if empty
+    find_max()           : Returns the largest value in the tree, returns None if empty
+    is_empty()           : Returns True if the tree has no nodes, False otherwise
+    size()               : Returns the number of nodes in the tree
+    clear()              : Removes all nodes and resets the tree
+
+    """
+
 class Node():
     def __init__(self, val):
         self.val = val
@@ -9,7 +28,7 @@ class BinarySearchTree():
         self.root = None
         self.length = 0
 
-    def insert_node(self, node, val):
+    def insertNode(self, node, val):
         if node is None:
             newNode = Node(val)
             self.length +=1
@@ -20,9 +39,9 @@ class BinarySearchTree():
             node.right = (self.insert_node(node.right, val))
         return node
     def insert(self, val):
-        self.root = self.insert_node(self.root, val)
+        self.root = self.insertNode(self.root, val)
 
-    def delete_node(self, node, val):
+    def deleteNode(self, node, val):
         if node is None:
             return None
 
@@ -48,7 +67,7 @@ class BinarySearchTree():
                 node.right = self.delete_node(node.right, successor.val)
         return node
     def delete(self, val):
-        self.root = self.delete_node(self.root, val)
+        self.root = self.deleteNode(self.root, val)
 
     def search(self, val):
         current = self.root
@@ -62,13 +81,37 @@ class BinarySearchTree():
         return None
     
     def inOrder(self):
-        pass
+        result = []
+        self.inOrderHelper(self.root, result)
+        return result
+    def inOrderHelper(self, node, result):
+        if (node is None):
+            return
+        self.inOrderHelper(node.left, result)
+        result.append(node.val)
+        self.inOrderHelper(node.right, result)
 
-    def preOrder(self):
-        pass
+    def pre_order(self):
+        result = []
+        self.preOrderHelper(self.root, result)
+        return result
+    def preOrderHelper(self, node, result):
+        if (node is None):
+            return
+        result.append(node.val)
+        self.preOrderHelper(node.left, result)
+        self.preOrderHelper(node.right, result)
 
-    def postOrder(self):
-        pass
+    def post_order(self):
+        result = []
+        self.postOrderHelper(self.root, result)
+        return result
+    def postOrderHelper(self, node, result):
+        if (node is None):
+            return
+        self.postOrderHelper(node.left, result)
+        self.postOrderHelper(node.right, result)
+        result.append(node.val)
 
     def is_empty(self):
         return self.root == None
@@ -81,9 +124,19 @@ class BinarySearchTree():
         self.length = 0
 
     def findMin(self):
-        pass
+        if self.root == None:
+            return None
+        current = self.root
+        while current.left != None:
+            current = current.left
+        return current.val
 
     def findMax(self):
-        pass
+        if self.root == None:
+            return None
+        current = self.root
+        while current.right != None:
+            current = current.right
+        return current.val
 
     
