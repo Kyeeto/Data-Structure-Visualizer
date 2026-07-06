@@ -34,9 +34,9 @@ class BinarySearchTree():
             self.length +=1
             return newNode
         if val < node.val:
-            node.left = (self.insert_node(node.left, val))
+            node.left = (self.insertNode(node.left, val))
         else:
-            node.right = (self.insert_node(node.right, val))
+            node.right = (self.insertNode(node.right, val))
         return node
     def insert(self, val):
         self.root = self.insertNode(self.root, val)
@@ -46,9 +46,9 @@ class BinarySearchTree():
             return None
 
         if val < node.val:
-            node.left = self.delete_node(node.left, val)
+            node.left = self.deleteNode(node.left, val)
         elif val > node.val:
-            node.right = self.delete_node(node.right, val)
+            node.right = self.deleteNode(node.right, val)
         else:
             if node.left is None and node.right is None:
                 self.length -= 1
@@ -64,7 +64,7 @@ class BinarySearchTree():
                 while successor.left is not None:
                     successor = successor.left
                 node.val = successor.val
-                node.right = self.delete_node(node.right, successor.val)
+                node.right = self.deleteNode(node.right, successor.val)
         return node
     def delete(self, val):
         self.root = self.deleteNode(self.root, val)
@@ -113,7 +113,7 @@ class BinarySearchTree():
         self.postOrderHelper(node.right, result)
         result.append(node.val)
 
-    def is_empty(self):
+    def isEmpty(self):
         return self.root == None
 
     def size(self):

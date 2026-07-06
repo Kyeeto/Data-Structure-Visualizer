@@ -13,7 +13,7 @@ def mergeSort(lst):
 
         i = j = k = 0
 
-        while i < len(L) and k < len(R):
+        while i < len(L) and j < len(R):
             if L[i] < R[j]:
                 lst[k] = L[i]
                 i += 1

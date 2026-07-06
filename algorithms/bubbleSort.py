@@ -12,15 +12,15 @@ def bubbleSort(lst):
 
             steps.append({
                 "array" : arr[:],
-                "comparing" : [j, j + 1], 
-                "swapped" : False
+                "highlight" : [j, j + 1], 
+                "action" : "compare"
             })
-            if lst[j] > lst[j + 1]:
-                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
                 steps.append({
                 "array" : arr[:],
-                "comparing" : [j, j + 1], 
-                "swapped" : True
+                "highlight" : [j, j + 1], 
+                "action" : "swap"
             })
                 
     return steps 
