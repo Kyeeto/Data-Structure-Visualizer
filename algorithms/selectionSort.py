@@ -3,9 +3,27 @@ A Simple Selection Sort implementation.
 """
 
 def selectionSort(lst):
-    for i in range(len(lst)):
+    steps = []
+    arr = lst[:]
+    n = len(arr)
+
+    for i in range(n):
         min_index = i
-        for j in range(i + 1, len(lst)):
-            if lst[min_index] > lst[j]:
+        for j in range(i + 1, n):
+            steps.append({
+                "array": arr[:],
+                "highlight": [min_index, j], 
+                "action": "compare", 
+                "pointers": {"min": min_index}
+            })
+            if arr[min_index] > arr[j]:
                 min_index = j
-        lst[i], lst[min_index] = lst[min_index], lst[i]
+
+        steps.append({
+            "array": arr[:], 
+            "highlight": [i, min_index], 
+            "action": "swap", 
+            "pointers": {"min": min_index}
+        })
+        arr[i], arr[min_index] = arr[min_index], arr[i]
+    return steps
