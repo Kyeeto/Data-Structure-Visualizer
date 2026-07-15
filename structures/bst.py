@@ -35,7 +35,7 @@ class BinarySearchTree():
             return newNode
         if val < node.val:
             node.left = (self.insertNode(node.left, val))
-        else:
+        elif val > node.val:
             node.right = (self.insertNode(node.right, val))
         return node
     def insert(self, val):

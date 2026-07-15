@@ -75,7 +75,7 @@ class SinglyLinkedList():
             self.tail = new_node
 
         else:  #insert in middle
-            prev = self.get(index - 1)
+            prev = self.getNode(index - 1)
             new_node.next = prev.next
             prev.next = new_node
 
@@ -166,7 +166,7 @@ class SinglyLinkedList():
             current = current.next
             currentIndex +=1
         
-        return current.val
+        return current
 
     def clear(self):
         self.head = None
