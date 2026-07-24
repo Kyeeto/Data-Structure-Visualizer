@@ -23,6 +23,8 @@ class MyArray():
         return self.arr[index]
 
     def set(self, index, val):
+        if index < 0 or index > self.length - 1:
+            return "Index out of bounds"
         self.arr[index] = val
 
     def append(self, val):
