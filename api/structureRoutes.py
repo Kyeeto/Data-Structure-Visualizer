@@ -11,6 +11,7 @@ structureAPI = Blueprint("structures", __name__)
 
 stackOps = {"push", "pop", "peek"}
 arrayOps = {"append", "insert", "set"}
+queueOps = {"enqueue", "dequeue", "front"}
 
 @structureAPI.route("/array/<operation>", methods = ["POST"])
 def array(operation):
@@ -83,7 +84,30 @@ def hashmap(operation):
 
 @structureAPI.route("/queue/<operation>", methods = ["POST"])
 def queue(operation):
-    pass
+    data = request.get_json(silent = True)
+    if data is None: 
+        return jsonify({"error": "No data inputted"}), 400
+
+    if operation not in queueOps:
+        return jsonify({"error": "No data inputted"}), 400
+
+    values = data.get("values")
+    q = Queue()
+
+    if not isinstance(values, list):
+        return jsonify({"error": "Values must be a list"}), 400
+
+    for v in values:
+        q.enqueue(v)
+
+    if operation == "enqueue":
+        pass
+
+    if operation == "dequeue":
+        pass
+
+    if operation == "front":
+        pass
 
 @structureAPI.route("/sll/<operation>", methods = ["POST"])
 def sll(operation):
