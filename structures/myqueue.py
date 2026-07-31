@@ -14,9 +14,9 @@ class Queue():
     clear()             : Remove all elements from the queue.
     """
 
-    def __init__(self, maxsize):
+    def __init__(self):
         self.queue = []
-        self.maxsize = maxsize
+        self.maxsize = 10
 
     def enqueue(self, val):
         if len(self.queue) == self.maxsize:

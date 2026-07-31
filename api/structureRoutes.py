@@ -12,6 +12,7 @@ structureAPI = Blueprint("structures", __name__)
 stackOps = {"push", "pop", "peek"}
 arrayOps = {"append", "insert", "set"}
 queueOps = {"enqueue", "dequeue", "front"}
+sllOps = {"append", "prepend", "insert", "pop", "remove"}
 
 @structureAPI.route("/array/<operation>", methods = ["POST"])
 def array(operation):
@@ -89,29 +90,69 @@ def queue(operation):
         return jsonify({"error": "No data inputted"}), 400
 
     if operation not in queueOps:
-        return jsonify({"error": "No data inputted"}), 400
+        return jsonify({"error": f"Unknown operation '{operation}'"}), 400
 
     values = data.get("values")
     q = Queue()
 
     if not isinstance(values, list):
         return jsonify({"error": "Values must be a list"}), 400
-
     for v in values:
         q.enqueue(v)
 
     if operation == "enqueue":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"Value must be an int"}), 400
+        else:
+            result = q.enqueue(value)
+            if result == "Queue is Full":
+                return jsonify({"Queue capacity reached"}), 400
+            else:
+                jsonify({"values": q.queue, "result": result})
 
     if operation == "dequeue":
-        pass
+        result = q.dequeue()
+        if result == None:
+            return jsonify({"error": "Empty queue"}), 400
+        else:
+            return jsonify({"values": q.queue, "result": result})
 
     if operation == "front":
-        pass
+        result = q.front()
+        if result == None:
+            return jsonify({"error": "Empty queue"})
+        else:
+            return jsonify({"values": q.queue, "result": result})
 
 @structureAPI.route("/sll/<operation>", methods = ["POST"])
 def sll(operation):
-    pass
+    data = request.get_json(silent = True)
+    if data is None:
+        return jsonify({"error": "No data inputted"}), 400
+    
+    if operation not in stackOps: 
+        return jsonify({"error": f"Unknown operation '{operation}'"}), 400
+
+    values = data.get("values")
+    sll = SinglyLinkedList
+
+    if not isinstance(values, list):
+        return jsonify({"error": "Values must be a list"}), 400
+    for v in values:
+        sll.append(v)
+
+    if operation == "append":
+        pass
+    elif operation == "prepend":
+        pass
+    elif operation == "insert":
+        pass
+    elif operation == "pop":
+        pass
+    elif operation == "remove":
+        pass
+
 
 @structureAPI.route("/stack/<operation>", methods = ["POST"])
 def stack(operation):

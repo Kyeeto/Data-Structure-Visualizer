@@ -172,3 +172,11 @@ class SinglyLinkedList():
         self.head = None
         self.tail = None
         self.length = 0
+
+    def to_list(self):
+        result = []
+        current = self.head
+        while current is not None:
+            result.append(current.val)
+            current = current.next
+        return result
