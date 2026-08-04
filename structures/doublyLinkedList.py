@@ -149,7 +149,7 @@ class DoublyLinkedList:
             current = current.next
 
         if current.next == None:
-            return None
+            return -1
         else: 
             removed_val = current.next
             if current.next == self.tail: #removed tail case
@@ -163,14 +163,14 @@ class DoublyLinkedList:
         
     def remove_at(self, index):
         if index < 0 or index >= self.length:
-            return None
+            return "Index does not exist"
         
         currentIndex = 0
         current = self.head
         while currentIndex != index:
             current = current.next
             currentIndex +=1
-        removed_index = current.val
+        removed_index = current
 
         if index == 0: # remove head case
             self.head = self.head.next
@@ -235,7 +235,7 @@ class DoublyLinkedList:
 
     def set(self, index, val):
         if index < 0 or index >= self.length:
-            return None
+            return "Index does not exist"
         
         currentIndex = 0
         current= self.head

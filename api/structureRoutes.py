@@ -13,7 +13,7 @@ stackOps = {"push", "pop", "peek"}
 arrayOps = {"append", "insert", "set"}
 queueOps = {"enqueue", "dequeue", "front"}
 sllOps = {"append", "prepend", "insert", "pop", "remove"}
-dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "set"}
+dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "remove_at", "set"}
 bstOps = {}
 hashOps = {}
 
@@ -87,7 +87,7 @@ def dll(operation):
     if operation not in dllOps: 
         return jsonify({"error": f"Unknown operation '{operation}'"}), 400
 
-    values = data.ge("values")
+    values = data.get("values")
     dll = DoublyLinkedList()
 
     if not isinstance(values, list):
@@ -96,21 +96,80 @@ def dll(operation):
         dll.append(v)
 
     if operation == "append":
-        pass
-    elif operation == "prepend":
-        pass
-    elif operation == "insert":
-        pass
-    elif operation == "pop":
-        pass
-    elif operation == "pop_first":
-        pass
-    elif operation == "remove":
-        pass
-    elif operation == "set":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else: 
+            result = dll.append(value)
+            return jsonify({"values": dll.to_list(), "result": result})
 
-    
+    elif operation == "prepend":
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else: 
+            result = dll.prepend(value)
+            return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "insert":
+        value = data.get("value")
+        index = data.get("index")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        elif not isinstance(index, int):
+            return jsonify({"error": "Index must be an int"}), 400
+        else: 
+            result = dll.insert(index, value)
+            if result == "Index does not exist":
+                return jsonify({"error": "Please use an existing index"}), 400
+            return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "pop":
+        result = dll.pop()
+        if result == None:
+            return jsonify({"error": "Empty list"}), 400
+        else: 
+            return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "pop_first":
+        result = dll.pop_first()
+        if result == None:
+            return jsonify({"error": "Empty list"}), 400
+        else: 
+            return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "remove":
+            value = data.get("value")
+            if not isinstance(value, int):
+                return jsonify({"error": "Value must be an int"}), 400
+            else:
+                result = dll.remove(value)
+                if result == None:
+                    return jsonify({"error": "Empty List"}), 400
+                elif result == -1:
+                    return jsonify({"error": "Value not found"}), 400
+                else:
+                    return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "remove_at":
+        index = data.get("index")
+        if not isinstance(index, int):
+            return jsonify({"error": "Index must be an int"}), 400
+        else:
+            result = dll.remove_at(index)
+            if result == "Index does not exist":
+                return jsonify({"error": "Please use an existing index"}), 400
+            else: 
+                return jsonify({"values": dll.to_list(), "result": result})
+    elif operation == "set":
+        value = data.get("value")
+        index = data.get("index")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        elif not isinstance(index, int):
+            return jsonify({"error": "Index must be an int"}), 400
+        else: 
+            result = dll.set(index, value)
+            if result == "Index does not exist":
+                return jsonify({"error": "Please use an existing index"}), 400
+            else:
+                return jsonify({"values": dll.to_list(), "result": result}) 
+
 @structureAPI.route("/hashmap/<operation>", methods = ["POST"])
 def hashmap(operation):
     pass
