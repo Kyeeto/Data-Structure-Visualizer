@@ -120,7 +120,7 @@ class SinglyLinkedList():
             current = current.next
 
         if current.next == None: # val wasn't found
-            return None
+            return -1
         else: 
             removed_val = current.next.val
             current.next = current.next.next

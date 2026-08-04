@@ -138,11 +138,11 @@ class DoublyLinkedList:
             if self.head == None: # head was only item case
                 self.tail = None
                 self.length = 0
-                return removed_val
+                return removed_val.val
 
             self.head.prev = None
             self.length -=1
-            return removed_val
+            return removed_val.val
         
         current = self.head
         while current.next and current.next.val != val:
@@ -159,7 +159,7 @@ class DoublyLinkedList:
                 current.next = current.next.next
                 current.next.prev = current
             self.length -=1
-            return removed_val
+            return removed_val.val
         
     def remove_at(self, index):
         if index < 0 or index >= self.length:
@@ -170,30 +170,30 @@ class DoublyLinkedList:
         while currentIndex != index:
             current = current.next
             currentIndex +=1
-        removed_index = current
+        removed_index = current.val
 
         if index == 0: # remove head case
             self.head = self.head.next
             if self.head == None: # head was only item case:
                 self.tail = None
                 self.length = 0
-                return removed_index
+                return removed_index.val
             
             self.head.prev = None
             self.length -=1
-            return removed_index
+            return removed_index.val
         
         elif index == self.length - 1: # remove tail case
             self.tail = self.tail.prev
             self.tail.next = None
             self.length -=1
-            return removed_index
+            return removed_index.val
         
         else:
             current.prev.next = current.next
             current.next.prev = current.prev
             self.length -=1
-            return removed_index
+            return removed_index.val
 
     def find(self, val):
         current = self.head
@@ -250,3 +250,11 @@ class DoublyLinkedList:
         self.head = None
         self.tail = None
         self.length = 0
+
+    def to_list(self):
+        result = []
+        current = self.head
+        while current is not None:
+            result.append(current.val)
+            current = current.next
+        return result

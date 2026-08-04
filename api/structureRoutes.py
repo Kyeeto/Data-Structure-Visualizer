@@ -13,6 +13,9 @@ stackOps = {"push", "pop", "peek"}
 arrayOps = {"append", "insert", "set"}
 queueOps = {"enqueue", "dequeue", "front"}
 sllOps = {"append", "prepend", "insert", "pop", "remove"}
+dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "set"}
+bstOps = {}
+hashOps = {}
 
 @structureAPI.route("/array/<operation>", methods = ["POST"])
 def array(operation):
@@ -77,8 +80,37 @@ def bst(operation):
 
 @structureAPI.route("/dll/<operation>", methods = ["POST"])
 def dll(operation):
-    pass
+    data = request.get_json(silent = True)
+    if data is None:
+        return jsonify({"error": "No data inputted"}), 400
 
+    if operation not in dllOps: 
+        return jsonify({"error": f"Unknown operation '{operation}'"}), 400
+
+    values = data.ge("values")
+    dll = DoublyLinkedList()
+
+    if not isinstance(values, list):
+        return jsonify({"error": "Values must be a list"}), 400
+    for v in values:
+        dll.append(v)
+
+    if operation == "append":
+        pass
+    elif operation == "prepend":
+        pass
+    elif operation == "insert":
+        pass
+    elif operation == "pop":
+        pass
+    elif operation == "pop_first":
+        pass
+    elif operation == "remove":
+        pass
+    elif operation == "set":
+        pass
+
+    
 @structureAPI.route("/hashmap/<operation>", methods = ["POST"])
 def hashmap(operation):
     pass
@@ -131,11 +163,11 @@ def sll(operation):
     if data is None:
         return jsonify({"error": "No data inputted"}), 400
     
-    if operation not in stackOps: 
+    if operation not in sllOps: 
         return jsonify({"error": f"Unknown operation '{operation}'"}), 400
 
     values = data.get("values")
-    sll = SinglyLinkedList
+    sll = SinglyLinkedList()
 
     if not isinstance(values, list):
         return jsonify({"error": "Values must be a list"}), 400
@@ -143,16 +175,49 @@ def sll(operation):
         sll.append(v)
 
     if operation == "append":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else: 
+            result = sll.append(value)
+            return jsonify({"values": sll.to_list(), "result": result})
     elif operation == "prepend":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else: 
+            result = sll.prepend(value)
+            return jsonify({"values": sll.to_list(), "result": result})
     elif operation == "insert":
-        pass
+        value = data.get("value")
+        index = data.get("index")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        elif not isinstance(index, int):
+            return jsonify({"error": "Index must be an int"}), 400
+        else: 
+            result = sll.insert(index, value)
+            if result == "Index does not exist":
+                return jsonify({"error": "Please use an existing index"}), 400
+            return jsonify({"values": sll.to_list(), "result": result})
     elif operation == "pop":
-        pass
+        result = sll.pop()
+        if result == None:
+            return jsonify({"error": "Empty list"}), 400
+        else: 
+            return jsonify({"values": sll.to_list(), "result": result})
     elif operation == "remove":
-        pass
-
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else:
+            result = sll.remove(value)
+            if result == None:
+                return jsonify({"error": "Empty List"}), 400
+            elif result == -1:
+                return jsonify({"error": "Value not found"}), 400
+            else:
+                return jsonify({"values": sll.to_list(), "result": result})
 
 @structureAPI.route("/stack/<operation>", methods = ["POST"])
 def stack(operation):
