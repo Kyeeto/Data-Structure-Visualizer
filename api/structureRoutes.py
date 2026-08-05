@@ -15,7 +15,7 @@ queueOps = {"enqueue", "dequeue", "front"}
 sllOps = {"append", "prepend", "insert", "pop", "remove"}
 dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "remove_at", "set"}
 bstOps = {}
-hashOps = {}
+hashOps = {"insert", "get", "delete"}
 
 @structureAPI.route("/array/<operation>", methods = ["POST"])
 def array(operation):
