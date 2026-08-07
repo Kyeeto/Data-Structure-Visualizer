@@ -88,3 +88,14 @@ class Hashmap():
     def clear(self):
         self.map = [None] * 10
         self.length = 0
+
+    def to_buckets(self):
+        buckets = []
+        for head in self.map:
+            chain = []
+            current = head
+            while current != None:
+                chain.append({"key": current.key, "val": current.val})
+                current = current.next
+            buckets.append(chain)
+        return buckets

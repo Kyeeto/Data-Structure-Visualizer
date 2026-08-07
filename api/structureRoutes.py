@@ -172,7 +172,29 @@ def dll(operation):
 
 @structureAPI.route("/hashmap/<operation>", methods = ["POST"])
 def hashmap(operation):
-    pass
+    data = request.get_json(silent = True)
+    if data is None: 
+        return jsonify({"error": "No data inputted"}), 400
+
+    if operation not in hashOps:
+        return jsonify({"error": f"Unknown operation '{operation}'"}), 400
+
+    pairs = data.get("pairs")
+    hm = Hashmap()
+
+    if not isinstance(pairs, dict):
+        return jsonify({"error": "Pairs must be an object"}), 400
+    for key, val in pairs.items():
+        hm.insert(key, val)
+
+    if operation == "insert":
+        value = data.get("values")
+
+    elif operation == "get":
+        pass
+
+    elif operation == "delete":
+        pass
 
 @structureAPI.route("/queue/<operation>", methods = ["POST"])
 def queue(operation):
