@@ -188,7 +188,16 @@ def hashmap(operation):
         hm.insert(key, val)
 
     if operation == "insert":
-        value = data.get("values")
+        value = data.get("value")
+        key = data.get("key")
+        if not isinstance(value, int):
+            return jsonify({"Value must be an int"}), 400
+        if not isinstance(key, int):
+            return jsonify({"Key must be an int"}), 400
+        else: 
+            result = hm.insert(key, value)
+            if result == "Map is full":
+                return jsonify({"error": "Map is full"}), 400
 
     elif operation == "get":
         pass
@@ -216,11 +225,11 @@ def queue(operation):
     if operation == "enqueue":
         value = data.get("value")
         if not isinstance(value, int):
-            return jsonify({"Value must be an int"}), 400
+            return jsonify({"error": "Value must be an int"}), 400
         else:
             result = q.enqueue(value)
             if result == "Queue is Full":
-                return jsonify({"Queue capacity reached"}), 400
+                return jsonify({"error": "Queue capacity reached"}), 400
             else:
                 jsonify({"values": q.queue, "result": result})
 

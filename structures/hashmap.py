@@ -20,6 +20,7 @@ class Node():
 class Hashmap():
     def __init__(self):
         self.cap = 10
+        self.max_pairs = 20
         self.length = 0
         self.map = [None] * 10
 
@@ -31,6 +32,8 @@ class Hashmap():
     def insert(self, key, val):
         index = self.hashKey(key)
         if (self.map[index] == None):
+            if self.length == self.max_pairs:
+                return "Map is full"
             self.map[index] = Node(key, val)
             self.length +=1
         else:
@@ -40,6 +43,8 @@ class Hashmap():
                     current.val = val
                     return
                 if (current.next == None):
+                    if self.length == self.max_pairs:
+                        return "Map is full"
                     current.next = Node(key, val)
                     self.length +=1 
                     return
