@@ -198,7 +198,8 @@ def hashmap(operation):
             result = hm.insert(key, value)
             if result == "Map is full":
                 return jsonify({"error": "Map is full"}), 400
-
+            else:
+                return jsonify({"buckets": hm.to_buckets, "result": None})
     elif operation == "get":
         pass
 
