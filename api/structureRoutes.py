@@ -191,20 +191,33 @@ def hashmap(operation):
         value = data.get("value")
         key = data.get("key")
         if not isinstance(value, int):
-            return jsonify({"Value must be an int"}), 400
-        if not isinstance(key, int):
-            return jsonify({"Key must be an int"}), 400
+            return jsonify({"error": "Value must be an int"}), 400
+        if not isinstance(key, str):
+            return jsonify({"error": "Key must be a string"}), 400
         else: 
             result = hm.insert(key, value)
             if result == "Map is full":
                 return jsonify({"error": "Map is full"}), 400
             else:
-                return jsonify({"buckets": hm.to_buckets, "result": None})
+                return jsonify({"buckets": hm.to_buckets(), "result": None})
     elif operation == "get":
-        pass
+        key = data.get("key")
+        if not isinstance(key, str):
+            return jsonify({"error": "Key must be a string"}), 400
+        else:
+            result = hm.get(key)
+            if result == None:
+                return jsonify({"error": "No values stored at this key"}), 400
+            else: 
+                return jsonify({"buckets": hm.to_buckets(), "result": result})
 
     elif operation == "delete":
-        pass
+        key = data.get("key")
+        if not isinstance(key, str):
+            return jsonify({"error": "Key must be a string"}), 400
+        else:
+            result = hm.delete(key)
+            return jsonify({"buckets": hm.to_buckets(), "result": result})
 
 @structureAPI.route("/queue/<operation>", methods = ["POST"])
 def queue(operation):
