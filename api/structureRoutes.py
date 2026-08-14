@@ -14,7 +14,7 @@ arrayOps = {"append", "insert", "set"}
 queueOps = {"enqueue", "dequeue", "front"}
 sllOps = {"append", "prepend", "insert", "pop", "remove"}
 dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "remove_at", "set"}
-bstOps = {}
+bstOps = {"insert", "delete", "search", "in_order", "pre_order", "post_order"}
 hashOps = {"insert", "get", "delete"}
 
 @structureAPI.route("/array/<operation>", methods = ["POST"])
@@ -76,8 +76,34 @@ def array(operation):
 
 @structureAPI.route("/bst/<operation>", methods = ["POST"])
 def bst(operation):
-    pass
+    data = request.get_json(silent = True)
+    if data is None: 
+        return jsonify({"error": "No data inputted"}), 400
 
+    if operation not in bstOps:
+        return jsonify({"error": f"Unknown operation '{operation}'"}), 400
+
+    values = data.get(values)
+    if not isinstance(values, list):
+            return jsonify({"error": "Values must be a list"}), 400
+
+    bst = BinarySearchTree()
+    for v in values:
+        bst.insert(v)
+
+    if operation == "insert":
+        pass
+    elif operation == "delete":
+        pass
+    elif operation == "search":
+        pass
+    elif operation == "in_order":
+        pass
+    elif operation == "pre_order":
+        pass
+    elif operation == "post_order":
+        pass
+    
 @structureAPI.route("/dll/<operation>", methods = ["POST"])
 def dll(operation):
     data = request.get_json(silent = True)

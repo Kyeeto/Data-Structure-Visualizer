@@ -139,4 +139,16 @@ class BinarySearchTree():
             current = current.right
         return current.val
 
+    def to_dict(self):
+        return self._node_to_dict(self.root)
+    def _node_to_dict(self, node):
+        if node is None:
+            return None
+        return {
+            "val": node.val,
+            "left": self._node_to_dict(node.left), 
+            "right": self._node_to_dict(node.right)
+        }
+        
+
     
