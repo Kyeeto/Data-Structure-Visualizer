@@ -17,6 +17,10 @@ dllOps = {"append", "prepend", "insert", "pop", "pop_first", "remove", "remove_a
 bstOps = {"insert", "delete", "search", "in_order", "pre_order", "post_order"}
 hashOps = {"insert", "get", "delete"}
 
+@structureAPI.route("/constraints", methods=["GET"])
+def contraints():
+    return jsonify({"array": 10, "stack": 5, "queue": 5, "hashmap": 20})
+
 @structureAPI.route("/array/<operation>", methods = ["POST"])
 def array(operation):
     data = request.get_json(silent = True)
@@ -83,7 +87,7 @@ def bst(operation):
     if operation not in bstOps:
         return jsonify({"error": f"Unknown operation '{operation}'"}), 400
 
-    values = data.get(values)
+    values = data.get("values")
     if not isinstance(values, list):
             return jsonify({"error": "Values must be a list"}), 400
 
@@ -92,17 +96,38 @@ def bst(operation):
         bst.insert(v)
 
     if operation == "insert":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else:
+            result = bst.insert(value)
+            return jsonify({"tree": bst.to_dict(), "result": result })
+            
     elif operation == "delete":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else: 
+            result = bst.delete(value)
+            return jsonify({"tree": bst.to_dict(), "result": result})
+            
     elif operation == "search":
-        pass
+        value = data.get("value")
+        if not isinstance(value, int):
+            return jsonify({"error": "Value must be an int"}), 400
+        else:
+            found = bst.search(value) is not None
+            return jsonify({"tree": bst.to_dict(), "result": found})
+
+
     elif operation == "in_order":
-        pass
+        return jsonify({"tree": bst.to_dict(), "result": bst.in_order()})
+    
     elif operation == "pre_order":
-        pass
+        return jsonify({"tree": bst.to_dict(), "result": bst.pre_order()})
+    
     elif operation == "post_order":
-        pass
+        return jsonify({"tree": bst.to_dict(), "result": bst.post_order()})
     
 @structureAPI.route("/dll/<operation>", methods = ["POST"])
 def dll(operation):

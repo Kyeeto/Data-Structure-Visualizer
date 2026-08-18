@@ -80,7 +80,7 @@ class BinarySearchTree():
                 current = current.right
         return None
     
-    def inOrder(self):
+    def in_order(self):
         result = []
         self.inOrderHelper(self.root, result)
         return result

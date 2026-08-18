@@ -14,7 +14,9 @@ algorithms = {
     "quick": quickSort, 
     "selection": selectionSort
 }
-
+@algorithmAPI.route("/algorithms", methods = ["GET"])
+def algorithms_list():
+    return jsonify({list(algorithms.keys())})
 @algorithmAPI.route("/sort/<algorithm>", methods = ["POST"])
 def sort(algorithm):
     data = request.get_json(silent=True)
