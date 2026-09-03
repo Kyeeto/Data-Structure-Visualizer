@@ -1,10 +1,30 @@
 import './App.css'
+import {Routes, Route} from 'react-router-dom'
+import ArrayPage from './pages/ArrayPage.jsx'
+import BSTPage from './pages/BSTPage.jsx'
+import DLLPage from './pages/DLLPage.jsx'
+import HashmapPage from './pages/HashmapPage.jsx'
+import HomePage from './pages/HomePage.jsx'
+import QueuePage from './pages/QueuePage.jsx'
+import SLLPage from './pages/SLLPage.jsx'
+import SortPage from './pages/SortPage.jsx'
+import StackPage from './pages/StackPage.jsx'
 
 function App() {
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <Routes>
+      <Route path="/" element = {<HomePage />} />
+      <Route path="/sort/algorithms" element = {<SortPage />} />
+
+      <Route path="/structures/array" element = {<ArrayPage />} />
+      <Route path="/structures/bst" element = {<BSTPage />} />
+      <Route path="/structures/dll" element = {<DLLPage />} />
+      <Route path="/structures/hashmap" element = {<HashmapPage />} />
+      <Route path="/structures/queue" element = {<QueuePage />} />
+      <Route path="/structures/sll" element = {<SLLPage />} />
+      <Route path="/structures/stack" element = {<StackPage />} />
+
+    </Routes>
   )
 }
 
