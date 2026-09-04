@@ -1,4 +1,4 @@
-function SortPage() {
+function AlgorithmsPage() {
   return (
     <div>
       <h1>Sort</h1>
@@ -6,4 +6,4 @@ function SortPage() {
   )
 }
 
-export default SortPage
+export default AlgorithmsPage

@@ -6,4 +6,4 @@ function QueuePage() {
   )
 }
 
-export default Queue
+export default QueuePage

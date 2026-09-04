@@ -6,4 +6,4 @@ function StackPage() {
   )
 }
 
-export default StackPack
+export default StackPage

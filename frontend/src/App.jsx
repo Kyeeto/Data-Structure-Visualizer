@@ -7,14 +7,14 @@ import HashmapPage from './pages/HashmapPage.jsx'
 import HomePage from './pages/HomePage.jsx'
 import QueuePage from './pages/QueuePage.jsx'
 import SLLPage from './pages/SLLPage.jsx'
-import SortPage from './pages/SortPage.jsx'
+import AlgorithmsPage from './pages/AlgorithmsPage.jsx'
 import StackPage from './pages/StackPage.jsx'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element = {<HomePage />} />
-      <Route path="/sort/algorithms" element = {<SortPage />} />
+      <Route path="/algorithms" element = {<AlgorithmsPage />} />
 
       <Route path="/structures/array" element = {<ArrayPage />} />
       <Route path="/structures/bst" element = {<BSTPage />} />
